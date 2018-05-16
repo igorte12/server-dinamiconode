@@ -23,7 +23,20 @@ app.use(express.static('www/Tareas'));
 app.get("/",function(req,res){
   fs.readFile("./www/Tareas/tarea.html", "utf8", function (err, text) {
     text = text.replace("[sustituir]", "");
-    console.log(text);
+    // console.log(text);
+       res.send(text);
+  });
+
+});
+
+app.get("/eliminar/:id?",function(req,res){
+  listaTareas.splice(req.body.id,1);  //borrar un registro(req.body.nº del registro, cantidad de registro)
+
+  fs.readFile("./www/Tareas/tarea.html", "utf8", function (err, text) {
+    var fila = cargarTareas(listaTareas);
+    // console.log(fila);
+    text = text.replace("[sustituir]", fila);
+    // console.log(text);
        res.send(text);
   });
 
@@ -47,7 +60,7 @@ app.post('/', function (req, res) {       //recibir peticiones en /datos usando 
   fs.readFile("./www/Tareas/tarea.html", "utf8", function (err, text) {  //utf8:es el tipo de texto(ortografía)
     //console.log("fichero leido");
     var fila = cargarTareas(listaTareas);
-    console.log(fila);
+    // console.log(fila);
     text = text.replace("[sustituir]", fila);
     res.send(text);
     // `
@@ -77,8 +90,10 @@ function cargarTareas(tareas) {
 <td>[id]</td>
 <td>[nombre]</td>
 <td>[tarea]</td>
+<td><a href="/eliminar?id=[id]">Eliminar</a></td>
 </tr>
 `;
+    fila = fila.replace("[id]", indice)
     fila = fila.replace("[id]", indice)
     fila = fila.replace("[nombre]", tareas[indice].nombre);
     fila = fila.replace("[tarea]", tareas[indice].tarea);
