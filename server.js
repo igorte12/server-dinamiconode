@@ -77,7 +77,7 @@ app.post('/', function (req, res) {       //recibir peticiones en /datos usando 
   })
 });
 
-var server = app.listen(80, function () {
+var server = app.listen(80, function () {    //arranca servidor (puerto 80)
   console.log('Servidor web iniciado');
 });
 
@@ -100,5 +100,5 @@ function cargarTareas(tareas) {
     lista += fila;
   }
   return lista;
-  
+
 }
