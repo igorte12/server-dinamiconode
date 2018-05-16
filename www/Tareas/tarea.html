@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tareas</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/tareas.js"></script>
+</head>
+
+<body>
+    <div id="div1">
+        <h1>Web de tareas</h1>
+        <form action="/" method="post" id="formulario">   
+            <!-- dirección de recogida de datos (method=get muestra los datos en la barra de direcciones,method=post no muestra los datos en la barra de direcciones ) -->
+            <input type="text" name="nombre"id="nombre">
+            <input type="text" name="tarea" id="tarea">
+            <button type="submit" id="enviar">Enviar</button>
+    
+        </form>
+        <hr>
+        <table>
+            <thead>
+                <th>Id</th>
+                <th>Usuario</th>
+                <th>Tarea</th>
+                <th>Operaciones</th>
+            </thead>
+            <tbody id="tabla">
+                [sustituir]
+               
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+
+</html>
