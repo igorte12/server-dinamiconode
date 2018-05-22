@@ -5,9 +5,16 @@ var app = express();
 var jsonParser = bodyParser.json()
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
+var mysql = require('mysql')
 var fs = require("fs")
 var listaTareas = [];
-
+var conection = mysql.createConnection({
+  host: 'localhost',
+  user: 'master',
+  password: '1234',
+  database: 'tareas db',
+  port: 3306
+})
 
 fileExists("tareas.json", (err, exists) => {
   if (err) {
@@ -39,11 +46,67 @@ app.get("/", function (req, res) {
 
 app.get("/eliminar/:id?", function (req, res) {
   listaTareas.splice(parseInt(req.query.id), 1);  //borrar un registro(req.body.nº del registro, cantidad de registro)
+  // function actualizar fichero(){
   fs.writeFile("tareas.json", JSON.stringify(listaTareas), function () {
     console.log("Fichero de datos actualizado");
   });
   res.redirect("/");
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function actualizarBBDD(datos) {
+  var query = conection.query('INSERT INTO tareas (nombre,tarea) VALUES(?,?)', [datos.nombre, datos.tarea],
+    function (error, result) {
+      if (error) {
+
+        throw error;
+      }
+      else {
+        console.log(result);
+      }
+    });
+}
+
+var query = conection.query('SELECT * FROM tareas' ,function (error, result) {
+  if (error) {
+
+    throw error;
+  }
+  else {
+    console.log(result);
+
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.post('/', function (req, res) {       //recibir peticiones en /datos usando method=get (debe coincidir con el method del index.html de tareas)
   console.log("petición recibida");
@@ -54,6 +117,16 @@ app.post('/', function (req, res) {       //recibir peticiones en /datos usando 
   // fs.writeFile("Prueba.txt","Hola, mundo")     //aunque no haya terminado de escribir, el programa sigue.
   // // fs.writeFileSync ("Prueba.txt,"Hola mundo")    // //hasta que termina de escribir el programa no sigue.
 
+
+
+
+
+  actualizarBBDD(nuevaTarea);
+
+
+
+
+
   fs.writeFile("tareas.json", JSON.stringify(listaTareas), function () {
     console.log("Fichero de datos actualizado");
   });
@@ -63,6 +136,9 @@ app.post('/', function (req, res) {       //recibir peticiones en /datos usando 
 var server = app.listen(8080, function () {    //arranca servidor (puerto 80)
   console.log('Servidor web iniciado');
 });
+
+
+
 
 
 function cargarTareas(tareas) {
@@ -130,3 +206,30 @@ function fileExists(file, cb) {
     return cb(null, stats.isFile());
   });
 };
+
+
+
+
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'master',
+  password: '1234',
+  database: 'tareas db'
+});
+
+connection.connect(function (err) {
+  if (err) {
+    console.log("Error al conectarse")
+  }
+  else {
+    console.log("Conexión correcta")
+  };
+});
+
+// connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+//   if (error) throw error;
+//   console.log('The solution is: ', results[0].solution);
+// });
+
+connection.end();
