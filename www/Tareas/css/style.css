@@ -1,13 +1,13 @@
 body {
-    background-color: rgb(255, 255, 255);
-    text-align: center;
-    border: 1px solid rgb(0, 0, 0);
     
+    text-align: center;
+    border: 5px solid rgb(0, 0, 0);
 }
 
 h1 {
     color: red;
     text-align: center;
+    margin-top:0px;
 }
 
 thead{
@@ -30,5 +30,29 @@ table {
 }
 
 #div1 {
-    background-color: rgb(131, 161, 90)
+    background-color: rgb(255, 255, 255)
+}
+#div1 form button {
+    background-color: rgb(76, 147, 175); 
+    border: 3px solid rgb(0, 0, 0);
+    color: white;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    font-size: 18px;
+}
+
+
+hr{
+    border:1px solid rgb(0, 0, 0);
+}
+
+input[name="nombre"]{
+    background: rgb(188, 224, 248);
+    border:px solid rgb(0, 0, 0);
+}
+input[name="tarea"]{
+    background: rgb(202, 248, 188);
+    border:2px solid rgb(0, 0, 0);
 }
